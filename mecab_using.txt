@@ -1,0 +1,11 @@
+무엇보다 python을 통해서 텍스트파일에 대해 토큰나이저 진행하는 것이 가장 이상적일듯
+stanza에 비해서 시간이 엄청 단축할 수 있다는 점도
+mecab dic 만 필요할뿐
+
+그래서 mecab_dic을 다운을 받고 진행
+
+how to install konlpy
+https://konlpy.org/en/latest/install/#ubuntu
+
+how to install mecab & mecab_dic
+https://sens.tistory.com/445
