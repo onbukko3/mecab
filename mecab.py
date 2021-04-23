@@ -1,12 +1,36 @@
+import sys
 import konlpy
 from konlpy.tag import Mecab
 
-kor_dict='/usr/local/lib/mecab/dic/mecab-ko-dic'
-filename = 'test.ko'
+src = sys.argv[1]
+tgt = sys.argv[2]
+
+kor_dict='/usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ko-dic'
 
 mecab = Mecab(dicpath=kor_dict)
-with open(filename, 'r') as src:
-    with open(filename+".morphs", 'w') as tgt:
+
+def tokenize(sent):
+    token = []
+    sent_nr = 0
+    for mor in mecab.parse(sent).split('\n'):
+        # print(mor)
+        if '\t' in mor:
+            splitted = mor.split('\t')
+            morph = splitted[0]
+            if sent[sent_nr] == ' ':
+                token.append('▃')
+                sent_nr += 1
+            token.append(morph)
+            sent_nr += len(morph)
+    return token
+
+with open(src, 'r') as src:
+    with open(tgt, 'w') as tgt:
+        print("-----------------Mecab--------------")
         for line in src.readlines():
-            tgt.write(' '.join(mecab.morphs(line))+'\n')
+            token=tokenize(line)
+            tgt.write(' '.join(token)+'\n')
+        print("-----------------finished--------------")
+        tgt.close()
+    src.close()
         
